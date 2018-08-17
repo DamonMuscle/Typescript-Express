@@ -5,5 +5,6 @@ import { Request, Response } from "express";
  * Home page.
  */
 export let index = (req: Request, res: Response) => {
-	res.send("<h1 style='color:darkgray;'>This is the api endpoint of PowerBlog!</h1>");
+	// res.send("<p style='color:darkgray;'>hello</p>");
+	res.render("index");
 };

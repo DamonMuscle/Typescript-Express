@@ -20,6 +20,7 @@ dotenv.config({ path: ".env.example" });
 
 // Controllers (route handlers)
 import * as homeController from "./controllers/homeController";
+import * as userController from "./controllers/userController";
 
 // Create Express server
 const app = express();
@@ -36,8 +37,8 @@ mongoose.connect(mongoUrl, { useMongoClient: true }).then(
 
 // Express configuration
 app.set("port", process.env.PORT || 3000);
-// app.set("views", path.join(__dirname, "../views"));
-// app.set("view engine", "pug");
+app.set("views", path.join(__dirname, "./public/views"));
+app.set("view engine", "pug");
 app.use(compression());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -75,13 +76,12 @@ app.use((req, res, next) => {
 	next();
 });
 
-app.use(
-	express.static(path.join(__dirname, "public"), { maxAge: 31557600000 })
-);
+app.use(express.static(path.join(__dirname, "public"), { maxAge: 31557600000 }));
 
 /**
  * Primary app routes.
  */
 app.get("/", homeController.index);
+app.post("/api/user/register", userController.register);
 
 export default app;
