@@ -3,8 +3,8 @@ import user from "../models/user";
 
 /**
  * register user
- * @param req 
- * @param res 
+ * @param req
+ * @param res
  */
 export let register = (req: Request, res: Response) => {
 	new user({
@@ -14,6 +14,6 @@ export let register = (req: Request, res: Response) => {
 	}).save().then((r) => {
 		res.sendStatus(200);
 	}).catch((e) => {
-		res.send(e.errmsg);
+		res.json(e.errmsg);
 	});
 };
