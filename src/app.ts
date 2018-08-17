@@ -2,7 +2,6 @@ import express from "express";
 import compression from "compression";  // compresses requests
 import session from "express-session";
 import bodyParser from "body-parser";
-import logger from "./util/logger";
 import lusca from "lusca";
 import dotenv from "dotenv";
 import mongo from "connect-mongo";
@@ -20,11 +19,7 @@ const MongoStore = mongo(session);
 dotenv.config({ path: ".env.example" });
 
 // Controllers (route handlers)
-import * as homeController from "./controllers/home";
-
-
-// API keys and Passport configuration
-import * as passportConfig from "./config/passport";
+import * as homeController from "./controllers/homeController";
 
 // Create Express server
 const app = express();
@@ -41,8 +36,8 @@ mongoose.connect(mongoUrl, { useMongoClient: true }).then(
 
 // Express configuration
 app.set("port", process.env.PORT || 3000);
-app.set("views", path.join(__dirname, "../views"));
-app.set("view engine", "pug");
+// app.set("views", path.join(__dirname, "../views"));
+// app.set("view engine", "pug");
 app.use(compression());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
