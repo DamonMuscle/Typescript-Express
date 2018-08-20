@@ -35,9 +35,13 @@ export let login = (req: Request, res: Response) => {
 	});
 };
 
-export let update = (req: Request, res: Response) => {
+export let updateUserInfo = (req: Request, res: Response) => {
 	user.findByIdAndUpdate(req.session.currentUid,
 		{ password: md5(req.body.password) }, (err, result) => {
-			res.send(result)
+			res.send(result);
 		});
+};
+
+export let logout = (req: Request, res: Response) => {
+	req.session.destroy(() => { });
 };

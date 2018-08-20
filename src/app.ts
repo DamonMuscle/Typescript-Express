@@ -84,6 +84,7 @@ app.use(express.static(path.join(__dirname, "public"), { maxAge: 31557600000 }))
 app.get("/", homeController.index);
 app.post("/api/user/register", userController.register);
 app.post("/api/user/login", userController.login);
-app.post("/api/user/update", userController.update);
+app.post("/api/user/update", userController.updateUserInfo);
+app.post("/api/user/logout", userController.logout);
 
 export default app;
