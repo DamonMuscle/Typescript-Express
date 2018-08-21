@@ -12,7 +12,7 @@ export let updateArticleById = (req: Request, res: Response) => {
 	article.findByIdAndUpdate(req.body.articleId,
 		{ content: req.body.content, title: req.body.title },
 		(err, result) => {
-
+			result.toEntity();
 		});
 };
 

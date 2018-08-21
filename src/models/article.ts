@@ -1,4 +1,5 @@
-import mongoose, { Schema, SchemaTypes } from "mongoose";
+import mongoose, { Schema, SchemaTypes, Document } from "mongoose";
+import { ToDataEntity } from "./modelInterface";
 
 const articleSchema = new Schema({
 	title: String,
@@ -7,6 +8,15 @@ const articleSchema = new Schema({
 	lastUpdateDate: { type: Date, default: Date.now },
 	author: { type: SchemaTypes.ObjectId, ref: "user" },
 });
+
+interface IArticle extends Document {
+	title?: String;
+	content?: String;
+	createDate?: Date;
+	lastUpdateDate?: Date;
+	author?: String;
+	toEntity?: ToDataEntity;
+}
 
 articleSchema.methods.toEntity = function () {
 	const author = this.author.toEntity ? this.author.toEntity() : { id: this.author };
@@ -22,5 +32,5 @@ articleSchema.methods.toEntity = function () {
 	};
 };
 
-const article = mongoose.model("article", articleSchema);
+const article = mongoose.model<IArticle>("article", articleSchema);
 export default article;

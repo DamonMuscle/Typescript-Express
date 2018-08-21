@@ -93,7 +93,18 @@
 // export default user;
 
 
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema, Document } from "mongoose";
+import { ToDataEntity } from "./modelInterface";
+
+interface IUser extends Document {
+	email: String;
+	password: String;
+	bio: String;
+	userName: String;
+	avatar: String;
+	signupDate: Date;
+	toEntity: ToDataEntity;
+}
 
 const userSchema = new mongoose.Schema({
 	email: { type: String, unique: true },
@@ -115,6 +126,6 @@ userSchema.methods.toEntity = function () {
 	};
 };
 
-const user = mongoose.model("user", userSchema);
+const user = mongoose.model<IUser>("user", userSchema);
 
 export default user;

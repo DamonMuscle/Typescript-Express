@@ -13,9 +13,9 @@ export let register = (req: Request, res: Response) => {
 		password: md5(req.body.password),
 		userName: req.body.userName
 	}).save().then((r) => {
-		res.sendStatus(200);
+		res.json(r.toEntity());
 	}).catch((e) => {
-		res.json(e.errmsg);
+		res.json({ errmsg: e.errmsg });
 	});
 };
 
