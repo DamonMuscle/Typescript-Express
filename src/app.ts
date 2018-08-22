@@ -21,6 +21,7 @@ dotenv.config({ path: ".env.example" });
 // Controllers (route handlers)
 import * as homeController from "./controllers/homeController";
 import * as userController from "./controllers/userController";
+import * as genericController from "./controllers/genericController";
 
 // Create Express server
 const app = express();
@@ -82,6 +83,7 @@ app.use(express.static(path.join(__dirname, "public"), { maxAge: 31557600000 }))
  * Primary app routes.
  */
 app.get("/", homeController.index);
+app.get("/api/generic/getcaptcha", genericController.generateCaptcha);
 app.post("/api/user/register", userController.register);
 app.post("/api/user/login", userController.login);
 app.post("/api/user/update", userController.updateUserInfo);
